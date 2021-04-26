@@ -12,12 +12,6 @@ class EventGlobal {
     listen(event, callback) {
         this.vue.$on(event, callback);
     }
-
-    fireWhenReady(event, data = null) {
-        return function() {
-            this.fire(event, data);
-        }.bind(this);
-    }
 }
 
 export default new EventGlobal();
