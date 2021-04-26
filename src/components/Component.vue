@@ -153,6 +153,8 @@ export default {
           }
 
           let width = event.rect.width;
+          // let widthTotal = document.querySelector('.preview-wrapper').offsetWidth
+          
           let upperLimit = self.howWideCanContainerBe(event.target);
 
           if (width > upperLimit || width < 300) {
@@ -165,8 +167,13 @@ export default {
             self.createAnotherDropzoneInsideContainer(event.target);
           }
 
+          // console.log(widthTotal - width)
+
           let target = event.target;
+          // let widthNew = (event.rect.width * 100)/ widthTotal;
           target.style.width = event.rect.width + "px";
+          // target.style.width = widthNew + "%";
+
 
           let x = parseFloat(target.getAttribute("data-x")) || 0;
           x += event.deltaRect.left;
@@ -278,4 +285,5 @@ export default {
   padding-bottom: 5px
 .paddingB0
   padding-bottom: 0
+
 </style>

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Global from '../../helper.js';
+import Global from "../../helper.js";
 
 import Margin from "./Margin";
 import Justification from "./Justification";
@@ -41,7 +41,7 @@ export default {
     justification: Justification,
     "k-image": Image,
     "k-button": Button,
-    "k-links": Links,
+    "k-links": Links, 
     "k-code": Code,
   },
 

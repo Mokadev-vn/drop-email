@@ -10,6 +10,10 @@
         </div>
       </div>
     </div>
+    <div class="control-btn">
+      <div @click="previewMobile"><i class="fas fa-mobile"></i></div>
+      <div @click="previewDesktop"><i class="fas fa-desktop"></i></div>
+    </div>
   </div>
 </template>
 
@@ -279,6 +283,18 @@ export default {
     show() {
       console.log(this.dropped);
     },
+
+    previewMobile() {
+      let preview = document.querySelector(".preview-wrapper");
+      preview.style.width = "300px";
+      preview.style.transition = "width 1s";
+    },
+
+    previewDesktop() {
+      let preview = document.querySelector(".preview-wrapper");
+      preview.style.width = "900px";
+      preview.style.transition = "width 1s";
+    },
   },
 };
 </script>
@@ -328,4 +344,19 @@ render,
 .render-body
   height: 100%
   background-color: white
+.control-btn
+  position: fixed
+  left: 12px
+  right: auto
+  bottom: 12px
+  z-index: 105
+  border: 1px solid rgb(59, 62, 67)
+  background-color: rgb(41, 48, 57)
+  padding: 0px 5px
+  color: white
+  div
+    display: inline-block
+    font-size: 25px
+    margin: 0 10px
+    cursor: pointer
 </style>

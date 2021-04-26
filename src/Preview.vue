@@ -146,6 +146,9 @@ export default {
   min-height: 100%
   padding: 1em
   margin: auto
+  @if max-width == 300
+    .row
+      display: block
 
 .row
   display: flex

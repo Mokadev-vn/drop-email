@@ -52,5 +52,5 @@ export default {
 .caption
   color: gray
   font-size: 12px
-  margin-top: -4px
+  margin-top: 4px
 </style>

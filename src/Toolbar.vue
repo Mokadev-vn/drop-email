@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Global from './helper.js';
+import Global from "./helper.js";
 import Settings from "./components/Settings/Settings";
 import Blocks from "./components/Blocks";
 
@@ -77,7 +77,6 @@ export default {
       this.editing = null;
       setTimeout(() => {
         if (data.isSibling) {
-          console.log(data);
           this.editing = this.dropped[data.index].sibling;
         } else {
           this.editing = this.dropped[data.index];

@@ -122,7 +122,7 @@ export default {
     border-color: $blue
     box-shadow: rgb(0 0 0 / 35%) 0px 6px 10px
     transition: border-color 300ms ease
-  &.moving
+  .moving
     cursor: grab
 
 .can-drop
