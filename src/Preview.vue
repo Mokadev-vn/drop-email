@@ -69,13 +69,16 @@ export default {
   mounted() {
     this.initDropzones();
 
-    Global.listen("highlight-container", (index) =>
-      this.highlightContainer(index)
-    );
+    Global.listen("highlight-container", (index) => {
+      console.log(index);
+      this.highlightContainer(index); 
+    });
 
     Global.listen("editing-component", (data) => {
       this.beingEdited = { index: data.index, isSibling: data.isSibling };
     });
+
+    
     Global.listen("done-editing", () => (this.beingEdited.index = null));
   },
 
@@ -132,6 +135,9 @@ export default {
       });
     },
   },
+  watch: {
+    
+  }
 };
 </script>
 
@@ -146,9 +152,6 @@ export default {
   min-height: 100%
   padding: 1em
   margin: auto
-  @if max-width == 300
-    .row
-      display: block
 
 .row
   display: flex

@@ -36,7 +36,7 @@ export default {
         first: [this.draggable.text, this.draggable.image],
         second: [this.draggable.divider, this.draggable.button],
         third: [this.draggable.space, this.draggable.links],
-        fourth: [this.draggable.test, this.draggable.html],
+        fourth: [this.draggable.layout, this.draggable.html],
       },
     };
   },

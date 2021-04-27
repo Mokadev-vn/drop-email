@@ -92,12 +92,14 @@ export default {
           marginTop: "a little",
           marginBottom: "a little",
         },
-        test: {
-          key: "test",
+        layout: {
+          key: "layout",
           icon: "fa-columns",
-          name: "Test",
+          name: "Layout",
           marginTop: "none",
           marginBottom: "none",
+          col: 2,
+          content: []
         },
         html: {
           key: "html",
@@ -118,6 +120,7 @@ export default {
       this.save();
     });
     Global.listen("component-dropped", (event) => {
+      console.log(event);
       this.addComponent(event);
       this.save();
     });
@@ -141,6 +144,11 @@ export default {
       this.destroyDropzoneNextToComponent(index);
       this.save();
     });
+
+    Global.listen("edit-child", (index) => {
+      this.edit(index)
+      this.save();
+    })
   },
 
   watch: {
@@ -188,8 +196,18 @@ export default {
       let index = parseInt(event.target.getAttribute("data-index"));
       let key = event.relatedTarget.getAttribute("data-key");
       let isSibling = event.target.getAttribute("sibling") != null;
+      let content = event.target.getAttribute("content") != null;
 
-      if (isSibling) {
+      if (content) {
+        let data = this.components[key]
+        let start = this.dropped[index].content.length
+        this.dropped[index].content.splice(
+          start,
+          0,
+          JSON.parse(JSON.stringify(data))
+        );
+        console.log(this.dropped)
+      }else if (isSibling) {
         this.dropped[index].hasDropzone = false;
         let temp = JSON.parse(JSON.stringify(this.dropped[index]));
         temp.sibling = this.components[key];
@@ -231,6 +249,7 @@ export default {
       Global.emit("editing-component", {
         index: data.index,
         isSibling: data.isSibling,
+        child: (data.child) ? data.child : null
       });
     },
 
@@ -288,12 +307,21 @@ export default {
       let preview = document.querySelector(".preview-wrapper");
       preview.style.width = "300px";
       preview.style.transition = "width 1s";
+      let temp = document.querySelectorAll(".size-component")
+      for(let i = 0; i < temp.length; i++){
+        temp[i].classList.remove("size-component")
+      }
+
     },
 
     previewDesktop() {
       let preview = document.querySelector(".preview-wrapper");
       preview.style.width = "900px";
       preview.style.transition = "width 1s";
+      let temp = document.querySelectorAll(".component-container")
+      for(let i = 0; i < temp.length; i++){
+        temp[i].classList.add("size-component")
+      }
     },
   },
 };

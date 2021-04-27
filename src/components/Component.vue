@@ -1,7 +1,7 @@
 <template>
   <div class="fill">
     <div
-      class="component-container"
+      class="component-container size-component"
       :class="customContainerClasses(el, index)"
       :data-index="index"
       :tag="containerID"
@@ -27,22 +27,22 @@
           title="Delete Component"
         ></i>
       </div>
-      <component :is="componentKey" :el="el"></component>
+      <component :is="componentKey" :el="el" :index="index"></component>
     </div>
   </div>
 </template>
 
 <script>
-import InteractJS from "interactjs";
+// import InteractJS from "interactjs";
 import Global from "../helper.js";
 import Text from "./Text";
-import Test from "./Test";
 import Image from "./Image";
 import Divider from "./Divider";
 import Button from "./Button";
 import Space from "./Space";
 import Links from "./Links";
 import Html from "./Html";
+import Layout from "./Layout";
 
 export default {
   name: "Component",
@@ -61,7 +61,7 @@ export default {
     "k-button": Button,
     "k-space": Space,
     "k-links": Links,
-    "k-test": Test,
+    "k-layout": Layout,
     "k-html": Html,
   },
 
@@ -133,53 +133,53 @@ export default {
     },
 
     makeContainersResizable() {
-      let self = this;
-      InteractJS(".resizable")
-        .resizable({
-          edges: { left: true, right: true },
-          onstart: function (event) {
-            event.target.classList.add("resizing");
-          },
-          onend: function (event) {
-            event.target.classList.remove("resizing");
-          },
-        })
-        .on("resizemove", function (event) {
-          let index = parseInt(event.target.getAttribute("data-index"));
-          let isSibling = self.targetIsSibling(event.target);
+      // let self = this;
+      // InteractJS(".resizable")
+      //   .resizable({
+      //     edges: { left: true, right: true },
+      //     onstart: function (event) {
+      //       event.target.classList.add("resizing");
+      //     },
+      //     onend: function (event) {
+      //       event.target.classList.remove("resizing");
+      //     },
+      //   })
+      //   .on("resizemove", function (event) {
+      //     let index = parseInt(event.target.getAttribute("data-index"));
+      //     let isSibling = self.targetIsSibling(event.target);
 
-          if (self.index !== index && self.isSibling !== isSibling) {
-            return;
-          }
+      //     if (self.index !== index && self.isSibling !== isSibling) {
+      //       return;
+      //     }
 
-          let width = event.rect.width;
-          // let widthTotal = document.querySelector('.preview-wrapper').offsetWidth
+      //     let width = event.rect.width;
+      //     // let widthTotal = document.querySelector('.preview-wrapper').offsetWidth
           
-          let upperLimit = self.howWideCanContainerBe(event.target);
+      //     let upperLimit = self.howWideCanContainerBe(event.target);
 
-          if (width > upperLimit || width < 300) {
-            return;
-          }
+      //     if (width > upperLimit || width < 300) {
+      //       return;
+      //     }
 
-          if (width > 600) {
-            Global.emit("destroy-dropzone", index);
-          } else if (width <= 600) {
-            self.createAnotherDropzoneInsideContainer(event.target);
-          }
+      //     if (width > 600) {
+      //       Global.emit("destroy-dropzone", index);
+      //     } else if (width <= 600) {
+      //       self.createAnotherDropzoneInsideContainer(event.target);
+      //     }
 
-          // console.log(widthTotal - width)
+      //     // console.log(widthTotal - width)
 
-          let target = event.target;
-          // let widthNew = (event.rect.width * 100)/ widthTotal;
-          target.style.width = event.rect.width + "px";
-          // target.style.width = widthNew + "%";
+      //     let target = event.target;
+      //     // let widthNew = (event.rect.width * 100)/ widthTotal;
+      //     target.style.width = event.rect.width + "px";
+      //     // target.style.width = widthNew + "%";
 
 
-          let x = parseFloat(target.getAttribute("data-x")) || 0;
-          x += event.deltaRect.left;
+      //     let x = parseFloat(target.getAttribute("data-x")) || 0;
+      //     x += event.deltaRect.left;
 
-          target.setAttribute("data-x", x);
-        });
+      //     target.setAttribute("data-x", x);
+      //   });
     },
 
     createAnotherDropzoneInsideContainer(container) {
@@ -215,6 +215,9 @@ export default {
 <style lang="sass">
 @import '../assets/sass/library'
 
+.size-component
+  padding: 0 150px !important
+  
 .fill
   width: 100%
   display: inline-block
